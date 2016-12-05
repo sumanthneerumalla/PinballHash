@@ -10,11 +10,6 @@
 #define PINBALL_CPP_
 
 #include <iostream>
-#include <time.h>
-#include <sys/resource.h>
-#include <sys/time.h>
-#include <stdio.h>
-#include <stdlib.h>
 #include <string.h>
 #include <cstring>
 #include <stdexcept>
@@ -45,6 +40,10 @@ Pinball::~Pinball() {
 }
 
 void Pinball::insert(const char *str) {
+  if((m_size == m_capacity)){
+    throw PinballHashFull("*** Exception: Hash map full!!");
+  }
+
   m_size++;
 
 }
@@ -63,7 +62,6 @@ const char *Pinball::at(int index) {
     throw std::out_of_range("Index out of range");
 
   return H[index];
-
 }
 
 
@@ -82,10 +80,12 @@ char *Pinball::myStrdup(const char *s) {
   size_t size = strlen(s) + 1;
 
   //allocate memory enough for copy
-  char *p = new char[size];
+//  char *p = new char[size];
+  char *p = (char *) malloc(size);
+
 
   if (p) {
-    strcpy (p,s);                        // Copy the characters
+    strcpy (p,s); // Copy the characters
   }
   return p;
 }
