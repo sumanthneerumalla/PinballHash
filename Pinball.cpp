@@ -9,9 +9,18 @@
 #ifndef PINBALL_CPP_
 #define PINBALL_CPP_
 
+#include <iostream>
+#include <time.h>
+#include <sys/resource.h>
+#include <sys/time.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 #include <cstring>
+#include <stdexcept>
 #include <string.h>
 #include "Pinball.h"
+
 
 #endif
 Pinball::Pinball(int n) {
@@ -19,10 +28,13 @@ Pinball::Pinball(int n) {
   m_size = 0; //start off size of hash table at 0
   m_degree = 7; //configuration given by professor
   m_ejectLimit = 20; //configuration given by professor
-  H = new char *[m_capacity]();
-  memset(H, 0, n * sizeof(char *));
-//  char* c3 = strdup("rabbits");
-//  char* c4 = strdup("parrots");
+  H = new char *[m_capacity];
+  int numAux = m_capacity * m_degree;
+  int allSlots [numAux];
+  memset(H, '\0', n * sizeof(char *));
+  char* temp = myStrdup("hello");
+  string tempSTr = temp;
+  cout<< tempSTr<<endl;
 
 }
 Pinball::~Pinball() {
@@ -31,19 +43,50 @@ Pinball::~Pinball() {
   }
   delete[] H;
 }
+
 void Pinball::insert(const char *str) {
   m_size++;
 
 }
+
 int Pinball::find(const char *str) {
-  return 0;
+  for (int i = 0; i < m_capacity; ++i) {
+    if(strcmp(H[i], str ) ==0 ){
+      return i;
+    }
+  }
+  return false;
 }
+
 const char *Pinball::at(int index) {
-  return nullptr;
+  if(index < 0 || index >= m_capacity)
+    throw std::out_of_range("Index out of range");
+
+  return H[index];
+
 }
+
+
 char *Pinball::remove(const char *str) {
-  return nullptr;
+  int myIndex = find(str);
+  m_size--;
+  char* myLocation =H[myIndex];
+  H[myIndex] = NULL;
+  return myLocation;
 }
+
 void Pinball::printStats() {
 
 }
+char *Pinball::myStrdup(const char *s) {
+  size_t size = strlen(s) + 1;
+
+  //allocate memory enough for copy
+  char *p = new char[size];
+
+  if (p) {
+    strcpy (p,s);                        // Copy the characters
+  }
+  return p;
+}
+

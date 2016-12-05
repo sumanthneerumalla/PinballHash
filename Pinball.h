@@ -37,6 +37,9 @@ class Pinball {
   // add public data members and
   // public member functions as needed
 
+  //created my own strDup function since my computer didnt' have strdup for some reason
+  char *myStrdup(const char *s);
+
 
  private:
 
