@@ -13,6 +13,7 @@
 #include <stdexcept>
 using namespace std;
 #include <string.h>
+#include <stdlib.h>
 
 class PinballHashFull : public std::out_of_range {
 
@@ -39,7 +40,6 @@ class Pinball {
 
   //created my own strDup function since my computer didnt' have strdup for some reason
   char *myStrdup(const char *s);
-
 
  private:
 
@@ -70,6 +70,13 @@ class Pinball {
 
   // add private data members and
   // private member functions as needed
+
+  //these statistics are initialized to 0, and adjusted everytime insert() runs
+  int numPrimarySlots;
+  float avgPrimaryHits;
+  int maxPrimaryHits;
+  int totalEjections;
+  int maxEjections;
 
 };
 
