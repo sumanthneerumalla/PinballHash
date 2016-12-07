@@ -77,6 +77,9 @@ class Pinball {
   int maxPrimaryHits;
   int totalEjections;
   int maxEjections;
+  unsigned int* offsets;
+
+  bool isPrimarySlot(int someLocation);
 
 };
 
