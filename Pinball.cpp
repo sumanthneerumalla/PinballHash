@@ -23,33 +23,28 @@ Pinball::Pinball(int n) {
   m_degree = 7; //configuration given by professor
   m_ejectLimit = 20; //configuration given by professor
 
-  //create arrays
+  //create arrays and initialize them to the proper values
   H = new char *[m_capacity];
   for (int i = 0; i < m_capacity; ++i) {
     H[i] = NULL;
   }
-  int myCounter = 0;
 
-  for (int i = 0; i < m_capacity; ++i) {
-    if (H[i] == NULL) {
-      myCounter++;
-    }
-  }
-  cout << "number of nulls is: " << myCounter << endl;
-  cout << "mcapacity is : " << m_capacity << endl;
-
+  //array used for storing how much to offset in case of collision
   offsets = new unsigned int[m_degree - 1];
-
   for (int i = 0; i < m_degree - 1; ++i) {
     offsets[i] = rand() % m_capacity;
-    cout << offsets[i] << endl;
   }
 
 
   //these statistics are initialized to 0, and adjusted everytime insert() runs
   numPrimarySlots = 0;
   avgPrimaryHits = 0;
-  maxPrimaryHits = 0;
+  maxPrimaryHits =  new int [m_capacity];
+  for (int i = 0; i < m_capacity ; ++i) {
+    maxPrimaryHits[i] = 0;
+  }
+  maxPrimaryHits[100] = 1000;
+
   totalEjections = 0;
   maxEjections = 0;
 
@@ -71,15 +66,44 @@ void Pinball::insert(const char *str) {
   if ((m_size == m_capacity)) {
     throw PinballHashFull("*** Exception: Hash map full!!");
   }
+
+  //as long as the string hasn't already been stored
   if (find(str) != -1) {
-    //as long as the string hasn't already been stored
+    m_size++;
     int primarySlotIndex = hashCode(str);
 
+    //if the hash value is immediately empty, update primary hits and copy the string over
+    if (isValidSlot(primarySlotIndex)) {
+      numPrimarySlots++;
+      const char *current = at(primarySlotIndex);
+      current = myStrdup(str);
+      return;
+    }
+
+
+
+    //otherwise update maxPrimaryHits for that location
+    maxPrimaryHits[primarySlotIndex]++;
+
+    //and  try the offsets
+    bool flag = false;
+    int mycount = 0;
+    while (flag == false) {
+      //try the offsets until a match is found or until offsets are exhausted
+      for (int i = 0; i < m_degree; ++i) {
+        int nextAuxSlot = offsets[i];
+        //if an empty slot is found, copy the string and
+        if (isValidSlot(primarySlotIndex)) {
+
+        }
+      }
+    }
   }
 
-  m_size++;
-
 }
+
+
+
 
 int Pinball::find(const char *str) {
   for (int i = 0; i < m_capacity; ++i) {
@@ -116,6 +140,9 @@ void Pinball::printStats() {
   //These results are calculated
   cout << "\tnumber of primary slots  = " << numPrimarySlots << endl;
   cout << "\taverage hits to primary slots = " << avgPrimaryHits << endl;
+
+
+
   cout << "\tmaximum hits to primary slots = " << maxPrimaryHits << endl;
   cout << "\t total number of ejections = " << totalEjections << endl;
   cout << "\tmaximum number of ejections in a single insertion = " << maxEjections << endl;
@@ -134,7 +161,7 @@ char *Pinball::myStrdup(const char *s) {
   }
   return p;
 }
-bool Pinball::isPrimarySlot(int someLocation) {
+bool Pinball::isValidSlot(int someLocation) {
 //get the pointer at the primary slot location
   const char *current = at(someLocation);
   if (current == NULL) {

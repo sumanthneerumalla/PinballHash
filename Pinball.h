@@ -74,12 +74,12 @@ class Pinball {
   //these statistics are initialized to 0, and adjusted everytime insert() runs
   int numPrimarySlots;
   float avgPrimaryHits;
-  int maxPrimaryHits;
+  int * maxPrimaryHits ;
   int totalEjections;
   int maxEjections;
   unsigned int* offsets;
 
-  bool isPrimarySlot(int someLocation);
+  bool isValidSlot(int someLocation);
 
 };
 
