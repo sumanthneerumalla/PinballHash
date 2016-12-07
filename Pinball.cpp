@@ -25,9 +25,7 @@ Pinball::Pinball(int n) {
 
   //create arrays and initialize them to the proper values
   H = new char *[m_capacity];
-  for (int i = 0; i < m_capacity; ++i) {
-    H[i] = NULL;
-  }
+  memset(H, '\0', sizeof(H));
 
   //array used for storing how much to offset in case of collision
   offsets = new unsigned int[m_degree - 1];
@@ -85,6 +83,17 @@ void Pinball::insert(const char *str) {
     //otherwise update maxPrimaryHits for that location
     maxPrimaryHits[primarySlotIndex]++;
 
+    int currMaxIndex;
+    int nextIndex;
+    currMaxIndex = maxPrimaryHits[0];
+    for (int j = 1; j <m_capacity ; ++j) {
+      nextIndex = maxPrimaryHits[j];
+      if(maxPrimaryHits[nextIndex]>maxPrimaryHits[currMaxIndex]){
+        currMaxIndex = nextIndex;
+      }
+    }
+    cout << "Largest index is at: "<< currMaxIndex<<endl;
+
     //and  try the offsets
     bool flag = false;
     int mycount = 0;
@@ -107,7 +116,7 @@ void Pinball::insert(const char *str) {
 
 int Pinball::find(const char *str) {
   for (int i = 0; i < m_capacity; ++i) {
-    if (strcmp(H[i], str) == 0) {
+    if ((H[i] != NULL) and  (strcmp(H[i], str) == 0)) {
       return i;
     }
   }
@@ -141,9 +150,9 @@ void Pinball::printStats() {
   cout << "\tnumber of primary slots  = " << numPrimarySlots << endl;
   cout << "\taverage hits to primary slots = " << avgPrimaryHits << endl;
 
+  //TODO:
 
-
-  cout << "\tmaximum hits to primary slots = " << maxPrimaryHits << endl;
+  cout << "\tmaximum hits to primary slots = " << *maxPrimaryHits << endl;
   cout << "\t total number of ejections = " << totalEjections << endl;
   cout << "\tmaximum number of ejections in a single insertion = " << maxEjections << endl;
   cout << "\t" << endl;
