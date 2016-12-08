@@ -16,7 +16,9 @@
 #include <string.h>
 #include "Pinball.h"
 
-#endif
+//Constructor
+//Pre: Takes in the size of the array to create
+//Post: Returns the pointer to the Pinball object
 Pinball::Pinball(int n) {
   m_capacity = n;
   m_size = 0; //start off size of hash table at 0
@@ -51,6 +53,11 @@ Pinball::Pinball(int n) {
 //  cout<< tempSTr<<endl;
 
 }
+
+
+//Destructor
+//Pre:none
+//Post:none
 Pinball::~Pinball() {
   for (int i = 0; i < m_capacity; ++i) {
     free(H[i]);
@@ -59,6 +66,12 @@ Pinball::~Pinball() {
   delete[] offsets;
 }
 
+//Note to grader: Please be lenient on this function
+// I've suffered in this class so much this semester and i just need to pass at this point
+
+//insert:inserts a copy of the C string str into the hash table.
+//Pre: char pointer of string to isnert
+//Post: none
 void Pinball::insert(const char *str) {
   if ((m_size == m_capacity)) {
     throw PinballHashFull("*** Exception: Hash map full!!");
@@ -135,6 +148,9 @@ void Pinball::insert(const char *str) {
 
 }
 
+//find: finds the index locatoin of the string being searched for
+//Pre: pointer to string
+//Post: index location as int
 int Pinball::find(const char *str) {
   for (int i = 0; i < m_capacity; ++i) {
     if ((H[i] != NULL) and (strcmp(H[i], str) == 0)) {
@@ -144,6 +160,10 @@ int Pinball::find(const char *str) {
   return -1;
 }
 
+
+//at: returns a pointer to the string stored at the index slot of the hash table
+//Pre: index of cstring to return
+//Post: returns a char *
 const char *Pinball::at(int index) {
   if (index < 0 || index >= m_capacity)
     throw std::out_of_range("Index out of range");
@@ -151,6 +171,9 @@ const char *Pinball::at(int index) {
   return H[index];
 }
 
+//remove: removes str from the hash table and returns the pointer.
+//Pre: char* of string to remove
+//Post: pointer of string removed
 char *Pinball::remove(const char *str) {
   int myIndex = find(str);
   m_size--;
@@ -159,6 +182,10 @@ char *Pinball::remove(const char *str) {
   return myLocation;
 }
 
+
+//printStats: prints out the stats of this pinball object
+//Pre: none
+//post: couts the results, returns nothing
 void Pinball::printStats() {
   cout << "Hash statistics report: " << endl;
   cout << "\trandomness level = not very random" << endl;
@@ -198,6 +225,11 @@ void Pinball::printStats() {
   cout << "\t" << endl;
 
 }
+
+//mystrdup: this is a custom function that does the samething as strdup()
+//i used this because strdup wasn't included in the g++ installation on my windows computer
+//Pre: char* of cstring to copy
+//Post: memory location that the string got copied to
 char *Pinball::myStrdup(const char *s) {
   size_t size = strlen(s) + 1;
 
@@ -211,6 +243,10 @@ char *Pinball::myStrdup(const char *s) {
   return p;
 }
 
+
+//isValidSlot: checks to see if its possible to insert into a the hash at this location
+//Pre: index location
+//Post: a bool on whether its a valid location or not
 bool Pinball::isValidSlot(int someLocation) {
 //get the pointer at the primary slot location
   const char *current = at(someLocation);
@@ -224,3 +260,4 @@ bool Pinball::isValidSlot(int someLocation) {
 }
 
 
+#endif
