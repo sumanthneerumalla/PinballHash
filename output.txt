@@ -1,0 +1,234 @@
+./driver.out  
+Random seed set to: 1481161904498
+
+Elapsed time = 33.994 milliseconds
+Hash statistics report: 
+	randomness level = not very random
+	capacity = 5003
+	size = 1000
+	degree = 7
+	ejection limit = 20
+	number of primary slots  = 1903
+	average hits to primary slots = 0
+	maximum hits to primary slots = 1
+	 total number of ejections = 0
+	maximum number of ejections in a single insertion = 0
+	
+
+
+Elapsed time = 68.990 milliseconds
+Hash statistics report: 
+	randomness level = not very random
+	capacity = 5003
+	size = 2000
+	degree = 7
+	ejection limit = 20
+	number of primary slots  = 3635
+	average hits to primary slots = 0
+	maximum hits to primary slots = 1
+	 total number of ejections = 0
+	maximum number of ejections in a single insertion = 0
+	
+
+
+Elapsed time = 98.985 milliseconds
+Hash statistics report: 
+	randomness level = not very random
+	capacity = 5003
+	size = 3000
+	degree = 7
+	ejection limit = 20
+	number of primary slots  = 5206
+	average hits to primary slots = 0
+	maximum hits to primary slots = 2
+	 total number of ejections = 0
+	maximum number of ejections in a single insertion = 0
+	
+
+
+Elapsed time = 127.980 milliseconds
+Hash statistics report: 
+	randomness level = not very random
+	capacity = 5003
+	size = 4000
+	degree = 7
+	ejection limit = 20
+	number of primary slots  = 6699
+	average hits to primary slots = 0
+	maximum hits to primary slots = 3
+	 total number of ejections = 0
+	maximum number of ejections in a single insertion = 0
+	
+
+
+Elapsed time = 157.976 milliseconds
+Hash statistics report: 
+	randomness level = not very random
+	capacity = 5003
+	size = 5000
+	degree = 7
+	ejection limit = 20
+	number of primary slots  = 8068
+	average hits to primary slots = 0
+	maximum hits to primary slots = 3
+	 total number of ejections = 0
+	maximum number of ejections in a single insertion = 0
+	
+
+
+./driver.out  
+Random seed set to: 1481161912061
+
+Elapsed time = 31.995 milliseconds
+Hash statistics report: 
+	randomness level = not very random
+	capacity = 5003
+	size = 1000
+	degree = 7
+	ejection limit = 20
+	number of primary slots  = 1899
+	average hits to primary slots = 0
+	maximum hits to primary slots = 0
+	 total number of ejections = 0
+	maximum number of ejections in a single insertion = 0
+	
+
+
+Elapsed time = 62.991 milliseconds
+Hash statistics report: 
+	randomness level = not very random
+	capacity = 5003
+	size = 2000
+	degree = 7
+	ejection limit = 20
+	number of primary slots  = 3625
+	average hits to primary slots = 0
+	maximum hits to primary slots = 0
+	 total number of ejections = 0
+	maximum number of ejections in a single insertion = 0
+	
+
+
+Elapsed time = 93.986 milliseconds
+Hash statistics report: 
+	randomness level = not very random
+	capacity = 5003
+	size = 3000
+	degree = 7
+	ejection limit = 20
+	number of primary slots  = 5176
+	average hits to primary slots = 0
+	maximum hits to primary slots = 3
+	 total number of ejections = 0
+	maximum number of ejections in a single insertion = 0
+	
+
+
+Elapsed time = 125.980 milliseconds
+Hash statistics report: 
+	randomness level = not very random
+	capacity = 5003
+	size = 4000
+	degree = 7
+	ejection limit = 20
+	number of primary slots  = 6703
+	average hits to primary slots = 0
+	maximum hits to primary slots = 2
+	 total number of ejections = 0
+	maximum number of ejections in a single insertion = 0
+	
+
+
+Elapsed time = 159.976 milliseconds
+Hash statistics report: 
+	randomness level = not very random
+	capacity = 5003
+	size = 5000
+	degree = 7
+	ejection limit = 20
+	number of primary slots  = 8085
+	average hits to primary slots = 0
+	maximum hits to primary slots = 3
+	 total number of ejections = 0
+	maximum number of ejections in a single insertion = 0
+	
+
+
+./driver.out  
+Random seed set to: 1481161918378
+
+Elapsed time = 31.995 milliseconds
+Hash statistics report: 
+	randomness level = not very random
+	capacity = 5003
+	size = 1000
+	degree = 7
+	ejection limit = 20
+	number of primary slots  = 1896
+	average hits to primary slots = 0
+	maximum hits to primary slots = 1
+	 total number of ejections = 0
+	maximum number of ejections in a single insertion = 0
+	
+
+
+Elapsed time = 62.990 milliseconds
+Hash statistics report: 
+	randomness level = not very random
+	capacity = 5003
+	size = 2000
+	degree = 7
+	ejection limit = 20
+	number of primary slots  = 3637
+	average hits to primary slots = 0
+	maximum hits to primary slots = 2
+	 total number of ejections = 0
+	maximum number of ejections in a single insertion = 0
+	
+
+
+Elapsed time = 94.986 milliseconds
+Hash statistics report: 
+	randomness level = not very random
+	capacity = 5003
+	size = 3000
+	degree = 7
+	ejection limit = 20
+	number of primary slots  = 5224
+	average hits to primary slots = 0
+	maximum hits to primary slots = 2
+	 total number of ejections = 0
+	maximum number of ejections in a single insertion = 0
+	
+
+
+Elapsed time = 125.980 milliseconds
+Hash statistics report: 
+	randomness level = not very random
+	capacity = 5003
+	size = 4000
+	degree = 7
+	ejection limit = 20
+	number of primary slots  = 6710
+	average hits to primary slots = 0
+	maximum hits to primary slots = 1
+	 total number of ejections = 0
+	maximum number of ejections in a single insertion = 0
+	
+
+
+Elapsed time = 157.976 milliseconds
+Hash statistics report: 
+	randomness level = not very random
+	capacity = 5003
+	size = 5000
+	degree = 7
+	ejection limit = 20
+	number of primary slots  = 8083
+	average hits to primary slots = 0
+	maximum hits to primary slots = 1
+	 total number of ejections = 0
+	maximum number of ejections in a single insertion = 0
+	
+
+
