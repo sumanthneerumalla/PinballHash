@@ -1,10 +1,10 @@
 FLAGS = -Wall
 
-all: smalltest.o Pinball.o
-	g++ $(FLAGS) smalltest.o Pinball.o  -o driver.out
+all: myDriver.o Pinball.o
+	g++ $(FLAGS) myDriver.o Pinball.o  -o driver.out
 
-Driver.o: driver.cpp
-	g++ $(FLAGS) driver.cpp -c
+myDriver.o: driver.cpp
+	g++ $(FLAGS) myDriver.cpp -c
 
 mediumtest.o: mediumtest.cpp
 	g++ $(FLAGS) mediumtest.cpp -c
