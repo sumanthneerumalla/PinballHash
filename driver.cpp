@@ -120,11 +120,11 @@ int main() {
   test(5003, 4000);   // >5,000 slots, ~80% full
   printf("\n\n");
 
-  test(10037, 8000);  // >10,000 slots, ~80% full
-  printf("\n\n");
-
-  test(20101, 16000);  // >20,000 slots, ~80% full
-  printf("\n\n");
+//  test(10037, 8000);  // >10,000 slots, ~80% full
+//  printf("\n\n");
+//
+//  test(20101, 16000);  // >20,000 slots, ~80% full
+//  printf("\n\n");
 
   return 0;
 }

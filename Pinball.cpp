@@ -37,11 +37,10 @@ Pinball::Pinball(int n) {
   //these statistics are initialized to 0, and adjusted everytime insert() runs
   numPrimarySlots = 0;
   avgPrimaryHits = 0;
-  maxPrimaryHits =  new int [m_capacity];
-  for (int i = 0; i < m_capacity ; ++i) {
+  maxPrimaryHits = new int[m_capacity];
+  for (int i = 0; i < m_capacity; ++i) {
     maxPrimaryHits[i] = 0;
   }
-  maxPrimaryHits[100] = 1000;
 
   totalEjections = 0;
   maxEjections = 0;
@@ -68,32 +67,19 @@ void Pinball::insert(const char *str) {
   if (find(str) == -1) {
     m_size++;
     int primarySlotIndex = hashCode(str) % m_capacity;
-    cout << "LINE 71"<<endl;
 
     //if the hash value is immediately empty, update primary hits and copy the string over
     if (isValidSlot(primarySlotIndex)) {
-      cout << "INSERTED"<<endl;
-      numPrimarySlots++;
+//      numPrimarySlots++;
+      maxPrimaryHits[primarySlotIndex]++;
       const char *current = at(primarySlotIndex);
       current = myStrdup(str);
       return;
     }
 
-
-    cout << "not a primary slot"<<endl;
+    cout << "not a primary slot" << endl;
     //otherwise update maxPrimaryHits for that location
     maxPrimaryHits[primarySlotIndex]++;
-
-    int currMaxIndex;
-    int nextIndex;
-    currMaxIndex = maxPrimaryHits[0];
-    for (int j = 1; j <m_capacity ; ++j) {
-      nextIndex = maxPrimaryHits[j];
-      if(maxPrimaryHits[nextIndex]>maxPrimaryHits[currMaxIndex]){
-        currMaxIndex = nextIndex;
-      }
-    }
-    cout << "Largest index is at: "<< currMaxIndex<<endl;
 
     //and  try the offsets
     bool flag = false;
@@ -104,20 +90,54 @@ void Pinball::insert(const char *str) {
         int nextAuxSlot = offsets[i];
         //if an empty slot is found, copy the string and
         if (isValidSlot(primarySlotIndex)) {
-
+          maxPrimaryHits[primarySlotIndex]++;
+          const char *current = at(primarySlotIndex);
+          current = myStrdup(str);
+          flag = true;
+          i = m_degree;
         }
       }
+
+      //if no empty slots are found, then pick an offset at random and eject it
+      if (flag == false) {
+        int auxNodeToEject;
+        int tempEjections = 0;
+
+        while (tempEjections < m_ejectLimit) {
+          //copy over the string to be ejected
+          auxNodeToEject = rand() % m_degree;
+          if (isValidSlot(auxNodeToEject) == false) {
+            char *tempString = H[auxNodeToEject];
+            H[auxNodeToEject] = myStrdup(str);
+            tempEjections++;
+            str = tempString;
+          }
+
+            //keep ejecting until an empty slot is found
+          else{
+            maxPrimaryHits[primarySlotIndex]++;
+            const char *current = at(primarySlotIndex);
+            current = myStrdup(str);
+            flag = true;
+          }
+
+        }
+
+        totalEjections += tempEjections;
+        if (tempEjections > maxEjections){
+              maxEjections = tempEjections;
+          };
+      }
+
     }
+
   }
 
 }
 
-
-
-
 int Pinball::find(const char *str) {
   for (int i = 0; i < m_capacity; ++i) {
-    if ((H[i] != NULL) and  (strcmp(H[i], str) == 0)) {
+    if ((H[i] != NULL) and (strcmp(H[i], str) == 0)) {
       return i;
     }
   }
@@ -148,12 +168,31 @@ void Pinball::printStats() {
   cout << "\tejection limit = " << m_ejectLimit << endl;
 
   //These results are calculated
+
+  for (int i = 0; i < m_capacity; ++i) {
+    if (maxPrimaryHits[i] != 0) {
+      numPrimarySlots++;
+    }
+  }
+
   cout << "\tnumber of primary slots  = " << numPrimarySlots << endl;
+
+  avgPrimaryHits = m_size /numPrimarySlots;
   cout << "\taverage hits to primary slots = " << avgPrimaryHits << endl;
 
   //TODO:
 
-  cout << "\tmaximum hits to primary slots = " << *maxPrimaryHits << endl;
+
+  int currMaxIndex;
+  int nextIndex;
+  currMaxIndex = maxPrimaryHits[0];
+  for (int j = 1; j < m_capacity; ++j) {
+    nextIndex = maxPrimaryHits[j];
+    if (maxPrimaryHits[nextIndex] > maxPrimaryHits[currMaxIndex]) {
+      currMaxIndex = nextIndex;
+    }
+  }
+  cout << "\tmaximum hits to primary slots = " << maxPrimaryHits[currMaxIndex] << endl;
   cout << "\t total number of ejections = " << totalEjections << endl;
   cout << "\tmaximum number of ejections in a single insertion = " << maxEjections << endl;
   cout << "\t" << endl;
@@ -172,17 +211,14 @@ char *Pinball::myStrdup(const char *s) {
   return p;
 }
 
-
 bool Pinball::isValidSlot(int someLocation) {
 //get the pointer at the primary slot location
   const char *current = at(someLocation);
   if (current == NULL) {
-    cout << "found an empty slot"<<endl;
     numPrimarySlots++;
     return true;
   }
   else {
-    cout << "Not an empty slot"<<endl;
     return false;
   }
 }
