@@ -64,14 +64,15 @@ void Pinball::insert(const char *str) {
   if ((m_size == m_capacity)) {
     throw PinballHashFull("*** Exception: Hash map full!!");
   }
-
   //as long as the string hasn't already been stored
-  if (find(str) != -1) {
+  if (find(str) == -1) {
     m_size++;
-    int primarySlotIndex = hashCode(str);
+    int primarySlotIndex = hashCode(str) % m_capacity;
+    cout << "LINE 71"<<endl;
 
     //if the hash value is immediately empty, update primary hits and copy the string over
     if (isValidSlot(primarySlotIndex)) {
+      cout << "INSERTED"<<endl;
       numPrimarySlots++;
       const char *current = at(primarySlotIndex);
       current = myStrdup(str);
@@ -79,7 +80,7 @@ void Pinball::insert(const char *str) {
     }
 
 
-
+    cout << "not a primary slot"<<endl;
     //otherwise update maxPrimaryHits for that location
     maxPrimaryHits[primarySlotIndex]++;
 
@@ -170,14 +171,18 @@ char *Pinball::myStrdup(const char *s) {
   }
   return p;
 }
+
+
 bool Pinball::isValidSlot(int someLocation) {
 //get the pointer at the primary slot location
   const char *current = at(someLocation);
   if (current == NULL) {
+    cout << "found an empty slot"<<endl;
     numPrimarySlots++;
     return true;
   }
   else {
+    cout << "Not an empty slot"<<endl;
     return false;
   }
 }
